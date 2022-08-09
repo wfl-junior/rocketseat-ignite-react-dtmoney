@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import logo from "../../assets/logo.svg";
+import { NewTransactionModal } from "../NewTransactionModal";
 import { HeaderContainer, HeaderContent, NewTransactionButton } from "./styles";
 
 interface HeaderProps {}
@@ -14,15 +15,7 @@ export const Header: React.FC<HeaderProps> = () => (
           <NewTransactionButton>Nova transação</NewTransactionButton>
         </Dialog.Trigger>
 
-        <Dialog.Portal>
-          <Dialog.Overlay />
-
-          <Dialog.Content>
-            <Dialog.Close />
-
-            <Dialog.Title>Nova transação</Dialog.Title>
-          </Dialog.Content>
-        </Dialog.Portal>
+        <NewTransactionModal />
       </Dialog.Root>
     </HeaderContent>
   </HeaderContainer>

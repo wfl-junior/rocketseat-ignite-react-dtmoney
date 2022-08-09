@@ -33,4 +33,8 @@ export const GlobalStyle = createGlobalStyle`
     border: 0;
     background: transparent;
   }
+
+  input {
+    border: 0;
+  }
 `;

@@ -8,7 +8,6 @@ export const SearchFormContainer = styled.form`
   input {
     flex: 1;
     border-radius: 6px;
-    border: 0;
     padding: 1rem;
 
     ${({ theme }) => css`
