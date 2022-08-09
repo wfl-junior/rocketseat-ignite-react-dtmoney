@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Transaction } from ".";
 
 export const TransactionsContainer = styled.main`
   width: 100%;
@@ -31,7 +32,7 @@ export const TransactionsTable = styled.table`
 `;
 
 interface PriceHighlightProps {
-  variant: "income" | "outcome";
+  variant: Transaction["type"];
 }
 
 export const PriceHighlight = styled.span<PriceHighlightProps>`

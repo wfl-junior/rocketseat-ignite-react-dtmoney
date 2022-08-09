@@ -1,6 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import styled, { css } from "styled-components";
+import { Transaction } from "../../pages/Transactions";
 
 export const Overlay = styled(Dialog.Overlay)`
   position: fixed;
@@ -77,7 +78,7 @@ export const TransactionTypes = styled(RadioGroup.Root)`
 `;
 
 interface TransactionTypeButtonProps {
-  variant: "income" | "outcome";
+  variant: Transaction["type"];
 }
 
 // para evitar de quebrar o syntax highlighting com quebra de linhas no TransactionTypeButton

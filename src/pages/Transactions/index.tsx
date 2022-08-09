@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import { SearchForm } from "./SearchForm";
@@ -7,52 +8,54 @@ import {
   TransactionsTable,
 } from "./styles";
 
+export interface Transaction {
+  id: number;
+  description: string;
+  type: "income" | "outcome";
+  price: number;
+  category: string;
+  createdAt: string;
+}
+
 interface TransactionsProps {}
 
-export const Transactions: React.FC<TransactionsProps> = () => (
-  <div>
-    <Header />
-    <Summary />
+export const Transactions: React.FC<TransactionsProps> = () => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-    <TransactionsContainer>
-      <SearchForm />
+  useEffect(() => {
+    fetch("http://localhost:3333/transactions")
+      .then(response => response.json())
+      .then(setTransactions)
+      .catch(console.warn);
+  }, []);
 
-      <TransactionsTable>
-        <tbody>
-          <tr>
-            <td>Desenvolvimento de site</td>
+  return (
+    <div>
+      <Header />
+      <Summary />
 
-            <td>
-              <PriceHighlight variant="income">R$ 12.000,00</PriceHighlight>
-            </td>
+      <TransactionsContainer>
+        <SearchForm />
 
-            <td>Venda</td>
-            <td>13/04/2022</td>
-          </tr>
+        <TransactionsTable>
+          <tbody>
+            {transactions.map(transaction => (
+              <tr key={transaction.id}>
+                <td>{transaction.description}</td>
 
-          <tr>
-            <td>Hambúrguer</td>
+                <td>
+                  <PriceHighlight variant={transaction.type}>
+                    {transaction.type === "outcome" && "-"} {transaction.price}
+                  </PriceHighlight>
+                </td>
 
-            <td>
-              <PriceHighlight variant="outcome">- R$ 59,00</PriceHighlight>
-            </td>
-
-            <td>Alimentação</td>
-            <td>10/04/2022</td>
-          </tr>
-
-          <tr>
-            <td>Aluguel do apartamento</td>
-
-            <td>
-              <PriceHighlight variant="outcome">- R$ 1.200,00</PriceHighlight>
-            </td>
-
-            <td>Casa</td>
-            <td>27/03/2022</td>
-          </tr>
-        </tbody>
-      </TransactionsTable>
-    </TransactionsContainer>
-  </div>
-);
+                <td>{transaction.category}</td>
+                <td>{transaction.createdAt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </TransactionsTable>
+      </TransactionsContainer>
+    </div>
+  );
+};
