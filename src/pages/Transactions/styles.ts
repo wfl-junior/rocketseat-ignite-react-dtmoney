@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Transaction } from ".";
+import { TransactionDTO } from "../../@types/DTOs/TransactionDTO";
 
 export const TransactionsContainer = styled.main`
   width: 100%;
@@ -32,7 +32,7 @@ export const TransactionsTable = styled.table`
 `;
 
 interface PriceHighlightProps {
-  variant: Transaction["type"];
+  variant: TransactionDTO["type"];
 }
 
 export const PriceHighlight = styled.span<PriceHighlightProps>`

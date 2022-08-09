@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
+import { useTransactionsContext } from "../../contexts/TransactionsContext";
 import { SearchForm } from "./SearchForm";
 import {
   PriceHighlight,
@@ -8,26 +8,10 @@ import {
   TransactionsTable,
 } from "./styles";
 
-export interface Transaction {
-  id: number;
-  description: string;
-  type: "income" | "outcome";
-  price: number;
-  category: string;
-  createdAt: string;
-}
-
 interface TransactionsProps {}
 
 export const Transactions: React.FC<TransactionsProps> = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3333/transactions")
-      .then(response => response.json())
-      .then(setTransactions)
-      .catch(console.warn);
-  }, []);
+  const { transactions } = useTransactionsContext();
 
   return (
     <div>
