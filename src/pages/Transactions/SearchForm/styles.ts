@@ -35,11 +35,30 @@ export const SearchFormContainer = styled.form`
       color: ${theme.colors.green[300]};
       border: 1px solid ${theme.colors.green[300]};
 
-      &:hover {
+      &:enabled:hover {
         color: ${theme.colors.white};
         background-color: ${theme.colors.green[500]};
         border-color: ${theme.colors.green[500]};
       }
     `}
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+
+      svg {
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        animation: spin 750ms linear infinite;
+      }
+    }
   }
 `;

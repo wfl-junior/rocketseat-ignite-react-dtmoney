@@ -47,6 +47,10 @@ export const Content = styled(Dialog.Content)`
       padding-inline: 1.25rem;
       border-radius: 6px;
       margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
 
       transition: background-color 0.2s linear;
 
@@ -54,10 +58,29 @@ export const Content = styled(Dialog.Content)`
         color: ${theme.colors.white};
         background-color: ${theme.colors.green[500]};
 
-        &:hover {
+        &:enabled:hover {
           background-color: ${theme.colors.green[700]};
         }
       `}
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+
+        svg {
+          @keyframes spin {
+            from {
+              transform: rotate(0deg);
+            }
+
+            to {
+              transform: rotate(360deg);
+            }
+          }
+
+          animation: spin 750ms linear infinite;
+        }
+      }
     }
   }
 `;
