@@ -1,6 +1,8 @@
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import { useTransactionsContext } from "../../contexts/TransactionsContext";
+import { formatDate } from "../../utils/formatDate";
+import { formatPrice } from "../../utils/formatPrice";
 import { SearchForm } from "./SearchForm";
 import {
   PriceHighlight,
@@ -29,12 +31,13 @@ export const Transactions: React.FC<TransactionsProps> = () => {
 
                 <td>
                   <PriceHighlight variant={transaction.type}>
-                    {transaction.type === "outcome" && "-"} {transaction.price}
+                    {transaction.type === "outcome" && "- "}
+                    {formatPrice(transaction.price)}
                   </PriceHighlight>
                 </td>
 
                 <td>{transaction.category}</td>
-                <td>{transaction.createdAt}</td>
+                <td>{formatDate(transaction.createdAt)}</td>
               </tr>
             ))}
           </tbody>
