@@ -24,4 +24,13 @@ export const GlobalStyle = createGlobalStyle`
   body, input, textarea, button, select {
     font: 400 1rem "Roboto", sans-serif;
   }
+
+  a, button {
+    cursor: pointer;
+  }
+
+  button {
+    border: 0;
+    background: transparent;
+  }
 `;
