@@ -1,5 +1,6 @@
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
+import { SearchForm } from "./SearchForm";
 import {
   PriceHighlight,
   TransactionsContainer,
@@ -14,6 +15,8 @@ export const Transactions: React.FC<TransactionsProps> = () => (
     <Summary />
 
     <TransactionsContainer>
+      <SearchForm />
+
       <TransactionsTable>
         <tbody>
           <tr>
