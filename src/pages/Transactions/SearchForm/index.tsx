@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleNotch, MagnifyingGlass } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
+import { useTransactionsContext } from "../../../contexts/TransactionsContext";
 import { SearchFormContainer } from "./styles";
 
 const searchFormValidationSchema = zod.object({
@@ -13,6 +14,7 @@ type SearchFormValues = zod.infer<typeof searchFormValidationSchema>;
 interface SearchFormProps {}
 
 export const SearchForm: React.FC<SearchFormProps> = () => {
+  const { fetchTransactions } = useTransactionsContext();
   const {
     register,
     handleSubmit,
@@ -25,8 +27,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
   });
 
   const handleSearch = handleSubmit(async values => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log(values);
+    await fetchTransactions(values.query);
   });
 
   const SubmitButtonIcon = isSubmitting ? CircleNotch : MagnifyingGlass;
