@@ -1,6 +1,6 @@
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
-import { useTransactionsContext } from "../../contexts/TransactionsContext";
+import { useTransactionsContextSelector } from "../../contexts/TransactionsContext";
 import { formatDate } from "../../utils/formatDate";
 import { formatPrice } from "../../utils/formatPrice";
 import { SearchForm } from "./SearchForm";
@@ -13,7 +13,9 @@ import {
 interface TransactionsProps {}
 
 export const Transactions: React.FC<TransactionsProps> = () => {
-  const { transactions } = useTransactionsContext();
+  const transactions = useTransactionsContextSelector(
+    context => context.transactions,
+  );
 
   return (
     <div>

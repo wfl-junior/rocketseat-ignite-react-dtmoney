@@ -1,4 +1,4 @@
-import { useTransactionsContext } from "../contexts/TransactionsContext";
+import { useTransactionsContextSelector } from "../contexts/TransactionsContext";
 
 interface TransactionSummary {
   income: number;
@@ -7,7 +7,9 @@ interface TransactionSummary {
 }
 
 export function useTransactionsSummary() {
-  const { transactions } = useTransactionsContext();
+  const transactions = useTransactionsContextSelector(
+    context => context.transactions,
+  );
 
   return transactions.reduce<TransactionSummary>(
     (summary, transaction) => {

@@ -3,7 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowCircleDown, ArrowCircleUp, CircleNotch, X } from "phosphor-react";
 import { Controller, useForm } from "react-hook-form";
 import * as zod from "zod";
-import { useTransactionsContext } from "../../contexts/TransactionsContext";
+import { useTransactionsContextSelector } from "../../contexts/TransactionsContext";
 import {
   CloseButton,
   Content,
@@ -29,7 +29,10 @@ type NewTransactionFormValues = zod.infer<
 interface NewTransactionModalProps {}
 
 export const NewTransactionModal: React.FC<NewTransactionModalProps> = () => {
-  const { createTransaction } = useTransactionsContext();
+  const createTransaction = useTransactionsContextSelector(
+    context => context.createTransaction,
+  );
+
   const {
     register,
     handleSubmit,

@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
+import { createContext, useContextSelector } from "use-context-selector";
 import { TransactionDTO } from "../@types/DTOs/TransactionDTO";
 import { api } from "../services/api";
 
@@ -24,7 +19,11 @@ interface TransactionsContextData {
 
 const TransactionsContext = createContext({} as TransactionsContextData);
 
-export const useTransactionsContext = () => useContext(TransactionsContext);
+export function useTransactionsContextSelector<T>(
+  selector: (context: TransactionsContextData) => T,
+) {
+  return useContextSelector(TransactionsContext, selector);
+}
 
 interface TransactionsContextProviderProps {
   children: React.ReactNode;
