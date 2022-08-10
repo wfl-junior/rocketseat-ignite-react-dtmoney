@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowCircleDown, ArrowCircleUp, CircleNotch, X } from "phosphor-react";
 import { Controller, useForm } from "react-hook-form";
 import * as zod from "zod";
+import { useTransactionsContext } from "../../contexts/TransactionsContext";
 import {
   CloseButton,
   Content,
@@ -28,10 +29,12 @@ type NewTransactionFormValues = zod.infer<
 interface NewTransactionModalProps {}
 
 export const NewTransactionModal: React.FC<NewTransactionModalProps> = () => {
+  const { createTransaction } = useTransactionsContext();
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { isSubmitting },
   } = useForm<NewTransactionFormValues>({
     resolver: zodResolver(newTransactionFormValidationSchema),
@@ -44,8 +47,8 @@ export const NewTransactionModal: React.FC<NewTransactionModalProps> = () => {
   });
 
   const handleCreateNewTransaction = handleSubmit(async values => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log(values);
+    await createTransaction(values);
+    reset();
   });
 
   return (
