@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { TransactionDTO } from "../@types/DTOs/TransactionDTO";
-import { API_BASE_URL } from "../utils/constants";
+import { api } from "../services/api";
 
 type FetchTransactionsFn = (query?: string) => Promise<void>;
 
@@ -29,17 +29,14 @@ export const TransactionsContextProvider: React.FC<
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
 
   const fetchTransactions: FetchTransactionsFn = useCallback(async query => {
-    const url = new URL(`${API_BASE_URL}/transactions`);
-
-    if (query) {
-      url.searchParams.append("q", query);
-    }
-
     try {
-      const response = await fetch(url);
-      const data = (await response.json()) as TransactionDTO[];
+      const response = await api.get<TransactionDTO[]>("/transactions", {
+        params: {
+          q: query || undefined,
+        },
+      });
 
-      setTransactions(data);
+      setTransactions(response.data);
     } catch (error) {
       console.warn(error);
     }
